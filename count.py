@@ -1,4 +1,5 @@
 import os
+import sys
 
 x = dict()
 addresses = open("pc_data").read()
@@ -10,8 +11,8 @@ print('finish sorting {} pc adresses'.format(len(addresses.split())), file = sys
 mapping = dict()
 lines = open("fmaps").readlines()
 for line in lines:
-	(rg, owner) = (line.split()[0], line.split()[-1])
-	if owner == '0' or owner[0] == '[':
+	(rg, pm, owner) = (line.split()[0], line.split()[1], line.split()[-1])
+	if owner == '0' or owner[0] == '[' or not "x" in pm:
 		continue
 	mapping[rg] = owner
 	print('finish mapping address range - {}'.format(owner), file = sys.stderr)
