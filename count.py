@@ -1,23 +1,22 @@
 import os
 
 x = dict()
-addresses = open("data").read()
+addresses = open("pc_data").read()
 for pc in addresses.split():
 	x[pc] = x.get(pc, 0) + 1
 sorted_pc = dict(sorted(x.items(), key=lambda item: (item[1], int(item[0], 16))))
-print('finish sorting {} pc adresses'.format(len(addresses.split())))
+print('finish sorting {} pc adresses'.format(len(addresses.split())), file = sys.stderr)
 
 mapping = dict()
-lines = open("maps").readlines()
+lines = open("fmaps").readlines()
 for line in lines:
 	(rg, owner) = (line.split()[0], line.split()[-1])
 	if owner == '0' or owner[0] == '[':
 		continue
 	mapping[rg] = owner
-	print('finish mapping address range - {}'.format(owner))
+	print('finish mapping address range - {}'.format(owner), file = sys.stderr)
 
 insmap = dict()
-
 for owner in mapping.values():
 	if owner == '0' or owner[0] == '[':
 		continue
@@ -27,7 +26,7 @@ for owner in mapping.values():
 		if line[0] != ' ':
 			continue
 		insmap[owner][int(line.split()[0][:-1], 16)] = line
-	print('finish mapping instructions - {}'.format(owner))
+	print('finish mapping instructions - {}'.format(owner), file = sys.stderr)
 
 for pc in sorted_pc.keys():
 	owner = "???"
