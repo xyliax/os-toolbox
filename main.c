@@ -86,10 +86,10 @@ int main(int argc, char *argv[]) {
 			}
 			//printf("Parent: (%d) received %s\n", child_pid, strsignal(WSTOPSIG(wstatus)));
 
-#ifndef __x86_64__
+#ifndef __x86_64__  //for arm64 platforms
 			ptrace(PTRACE_GETREGSET, child_pid, NT_PRSTATUS, &iov);
 			fprintf(f, "%llx ", regs.pc);
-#else
+#else               //for x86_64 platforms
 			ptrace(PTRACE_GETREGS, child_pid, NULL, &regs);
 			fprintf(f, "%llx ", regs.rip);
 #endif
